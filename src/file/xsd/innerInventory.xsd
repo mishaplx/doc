@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xs:schema version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	<xs:annotation>
+		<xs:documentation>
+			Схема для XML-документа описывающего сущность описи. Данный объект генерируется и подписывается на стороне внешней системы по отношению к ИС АЭД.
+			Далее этот документ и его подпись передаются через веб-сервис в ИС АЭД.
+			через метод SaveInnerInventory в следующих тегах:
+			1. SignData – XML-документ описывающий сущность описи, в соответствии с данной схемой
+			2. FileSignature - Данные о подписи (Дата, время генерации подписи и контейнер с подписью сгенерированный
+			средствами Авест (PKCS7))
+		</xs:documentation>
+	</xs:annotation>
+	<xs:element name="InnerInventory" type="innerInventoryDocument"/>
+	<xs:complexType name="innerInventoryDocument">
+		<xs:sequence>
+			<xs:element name="CountDoc">
+				<xs:annotation>
+					<xs:documentation>
+						Количество документов во внутренней описи
+					</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:integer">
+						<xs:minInclusive value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="CountFile">
+				<xs:annotation>
+					<xs:documentation>
+						Количество файлов во внутренней описи
+					</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:integer">
+						<xs:minInclusive value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="CountVolumeDoc">
+				<xs:annotation>
+					<xs:documentation>
+						Объем файлов электронного дела (Байт)
+					</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:long">
+						<xs:minInclusive value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="ListElectronicDocuments">
+				<xs:annotation>
+					<xs:documentation>
+						Группирующий элемент для тегов с информацией по электронным документам, входящих во внутреннюю опись.
+					</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="ElectronicDocument" type="innerInventoryDocumentElectronicDocument" maxOccurs="unbounded"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="innerInventoryDocumentElectronicDocument">
+		<xs:annotation>
+			<xs:documentation>Группирующий элемент для тегов с метаданными электронного документа.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="NumEDinArch" type="xs:integer">
+				<xs:annotation>
+					<xs:documentation>Номер документа в деле.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CreateTs">
+				<xs:annotation>
+					<xs:documentation>Дата документа в электронном виде. Формат: ГГГГ-ММ-ДД ЧЧ:ММ:СС</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:length value="19"/>
+						<xs:pattern	value="([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])) (0[0-9]|1[0-9]|2[0123]):([012345][0-9]):([012345][0-9])"/>
+						</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="Title">
+				<xs:annotation>
+					<xs:documentation>
+						Заголовок документа в электронном виде
+						Содержит не более 300 символов, и должен состоять из букв (А–Я, а–я, A–Z, a–z),
+						может включать в себя цифры (0–9) и специальные символы ",", "–", "_", "/", " ", "«", "»"
+					</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="300"/>
+						<xs:pattern value="[a-zA-Z0-9а-яА-ЯёЁ,_/\-\s&#171;&#187;]+"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="CountFileED">
+				<xs:annotation>
+					<xs:documentation>Количество объектов (файлов) электронного документа.</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:integer">
+						<xs:minInclusive value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="VolumeFileDocument">
+				<xs:annotation>
+					<xs:documentation>Объем электронного документа (в байтах).</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:long">
+						<xs:minInclusive value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="PrevEDHashFiles" type="xs:string" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>
+						Контрольная характеристика предыдущего электронного документа дела.
+						Это хэш всех файлов пред. документа дела
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PrevEDHash" type="xs:string" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>
+						Контрольная характеристика предыдущего электронного документа дела.
+						Это хэш карточки(метаданных) в виде xml. документа дела
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="HashED" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>
+						Контрольная характеристика электронного документа. Хэш документа
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="HashEDMetadata" type="xs:string" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>
+						Контрольная характеристика электронного документа. Хэш документа
+						Это хэш карточки(метаданных) в виде xml. документа дела
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="NoteED">
+				<xs:annotation>
+					<xs:documentation>
+						Примечание электронного документа
+					</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="2000"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

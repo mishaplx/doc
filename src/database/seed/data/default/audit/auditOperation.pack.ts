@@ -1,0 +1,126 @@
+import { AUDIT_OPERATION_TYPE } from "../../../../../modules/audit/const/audit.operationType.const";
+
+export const auditOperationSeedPack =
+[
+  {
+    id: 200,
+    name: 'Получение списка описей дел',
+    method: 'getAllInventory',
+    type: AUDIT_OPERATION_TYPE.PACK.id,
+    is_enabled: true,
+  },
+  {
+    id: 201,
+    name: 'Исключение описи из дела',
+    method: 'excludeDocs',
+    type: AUDIT_OPERATION_TYPE.PACK.id,
+    is_enabled: true,
+  },
+  {
+    id: 202,
+    name: 'Просмотр описи дела',
+    method: 'getInventoryById',
+    type: AUDIT_OPERATION_TYPE.PACK.id,
+    is_enabled: true,
+  },
+  {
+    id: 203,
+    name: 'Создание описи дела',
+    method: 'createInventory',
+    type: AUDIT_OPERATION_TYPE.PACK.id,
+    is_enabled: true,
+  },
+  {
+    id: 204,
+    name: 'Удаление описи дела',
+    method: 'deleteInventory',
+    type: AUDIT_OPERATION_TYPE.PACK.id,
+    is_enabled: true,
+  },
+  {
+    id: 205,
+    name: 'Изменение описи дела',
+    method: 'updateInventory',
+    type: AUDIT_OPERATION_TYPE.PACK.id,
+    is_enabled: true,
+  },
+  {
+    id: 206,
+    name: 'Получение списка дел',
+    method: 'getAllDocPackages',
+    type: AUDIT_OPERATION_TYPE.PACK.id,
+    is_enabled: true,
+  },
+  {
+    id: 220,
+    name: 'Формирование внутренней описи на дело',
+    method: 'formInnerInventoryDocPackages',
+    type: AUDIT_OPERATION_TYPE.PACK.id,
+    is_enabled: true,
+  },
+  {
+    id: 230,
+    name: 'Генерация ЭЦП на внутреннюю опись дела',
+    method: 'signInnerInventoryDocPackage',
+    type: AUDIT_OPERATION_TYPE.PACK.id,
+    is_enabled: true,
+  },
+  {
+    id: 240,
+    name: 'Получение списка актов',
+    method: 'getAllAct',
+    type: AUDIT_OPERATION_TYPE.PACK.id,
+    is_enabled: true,
+  },
+  {
+    id: 241,
+    name: 'Просмотр акта',
+    method: 'getActById',
+    type: AUDIT_OPERATION_TYPE.PACK.id,
+    is_enabled: true,
+  },
+  {
+    id: 242,
+    name: 'Создание акта',
+    method: 'createAct',
+    type: AUDIT_OPERATION_TYPE.PACK.id,
+    is_enabled: true,
+  },
+  {
+    id: 243,
+    name: 'Изменение акта',
+    method: 'updateAct',
+    type: AUDIT_OPERATION_TYPE.PACK.id,
+    is_enabled: true,
+  },
+  {
+    id: 244,
+    name: 'Удаление акта',
+    method: 'deleteAct',
+    type: AUDIT_OPERATION_TYPE.PACK.id,
+    is_enabled: true,
+  },
+  {
+    id: 250,
+    name: 'Генерация ЭЦП на акт',
+    method: 'signAct',
+    type: AUDIT_OPERATION_TYPE.PACK.id,
+    is_enabled: true,
+  },
+  {
+    id: 251,
+    name: 'Удаление дел по акту',
+    method: 'deleteDocPackageByAct',
+    type: AUDIT_OPERATION_TYPE.PACK.id,
+    is_enabled: true,
+  },
+
+  {
+    id: 260,
+    name: 'Скачивание акта',
+    method: '/report/act/del',
+    type: AUDIT_OPERATION_TYPE.PACK.id,
+    is_enabled: true,
+  },
+
+];

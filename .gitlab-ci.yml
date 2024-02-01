@@ -1,0 +1,23 @@
+stages:
+  - backend
+  - containerize
+  - release
+
+include:
+  - project: 'ops/gitlab-ci-templates'
+    file: 
+      - '/templates/Docker.gitlab-ci.yml'
+  
+building-backend:
+  stage: backend
+  tags:
+    - backend
+  script:
+   -  docker-compose up --build --remove-orphans -d
+   #-  docker image rm -f $(docker images -f dangling=true -q)
+  only:
+    - develop1
+
+docker-build:
+  rules:
+    - if: $CI_COMMIT_BRANCH == "stage"

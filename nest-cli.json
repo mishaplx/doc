@@ -1,0 +1,11 @@
+{
+  "collection": "@nestjs/schematics",
+  "sourceRoot": "src",
+  "compilerOptions": {
+    "typeCheck": true,
+    "assets": [
+      { "include": "modules/incmail/utils/poplib.js" },
+      { "include": "file/**/*" }
+    ]
+  }
+}

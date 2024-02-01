@@ -1,0 +1,9 @@
+# Ignore artifacts:
+build
+coverage
+
+
+
+
+src/BACK_SYNC_FRONT/**/*.ts
+src/database/migrations/**/*.ts
